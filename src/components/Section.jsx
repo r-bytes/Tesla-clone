@@ -1,24 +1,30 @@
-import React from 'react'
+import React from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom"
+import Fade from "react-reveal/Fade"
 
 const Section = ({title, description, leftBtnText, rightBtnText, backgroundImage}) => {
     return (
         <Wrapper bgImage={backgroundImage}>
-            <ItemText>
-                <h1> {title} </h1>
-                <p> {description} </p>
-            </ItemText>
+            <Fade bottom>
+                <ItemText>
+                    <h1> {title} </h1>
+                    <p> {description} </p>
+                </ItemText>
+            </Fade>
+
             <ButtonGroup>
-                <Buttons>
-                    <LeftButton>
-                        {leftBtnText}
-                    </LeftButton>
-                    {rightBtnText &&
-                        <RightButton>
-                            {rightBtnText}
-                        </RightButton>}
-                </Buttons>
+                <Fade bottom>
+                    <Buttons>
+                        <LeftButton>
+                            {leftBtnText}
+                        </LeftButton>
+                        {rightBtnText &&
+                            <RightButton>
+                                {rightBtnText}
+                            </RightButton>}
+                    </Buttons>
+                </Fade>
                 <DownArrow src="/images/down-arrow.svg" />
             </ButtonGroup>
         </Wrapper>
