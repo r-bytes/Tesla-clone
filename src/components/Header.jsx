@@ -1,27 +1,46 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from "styled-components"
 import MenuIcon from '@material-ui/icons/Menu'
 import IconButton from "@mui/material/IconButton"
+import CloseIcon from "@mui/icons-material/Close"
+import { useStateContext } from "../context/StateContext"
 
 const Header = () => {
+    const {showBurger, setShowBurger} = useStateContext()
+
     return (
         <Container>
-            <a>
+            <Logo show={showBurger}>
                 <img src="/images/logo.svg" alt="/" />
-            </a>
-            <Menu>
+            </Logo>
+            <Menu show={showBurger}>
                 <a href="#"> Model 3 </a>
                 <a href="#"> Model Y </a>
                 <a href="#"> Model S </a>
                 <a href="#"> Model X </a>
             </Menu>
-            <RightMenu>
+            <RightMenu show={showBurger}>
                 <a href="#"> Shop </a>
                 <a href="#"> Tesla Account </a>
-                <IconButton>
+                <IconButton onClick={() => setShowBurger(true)}>
                     <CustomMenu />
                 </IconButton>
             </RightMenu>
+            <BurgerNav show={showBurger}>
+                <CloseWrapper>
+                    <IconButton onClick={() => setShowBurger(false)}>
+                        <CloseIcon />
+                    </IconButton>
+                </CloseWrapper>
+                <li> <a href="#"> Solar Roof </a> </li>
+                <li> <a href="#"> Solar Panels </a></li>
+                <li> <a href="#"> Existing Inventory </a></li>
+                <li> <a href="#"> Used Inventory </a></li>
+                <li> <a href="#"> Trade-In </a></li>
+                <li> <a href="#"> Test Drive </a></li>
+                <li> <a href="#"> Insurance </a></li>
+                <li> <a href="#"> Powerwall </a></li>
+            </BurgerNav>
         </Container>
     )
 }
@@ -29,6 +48,7 @@ const Header = () => {
 export default Header
 
 const Container = styled.div`
+    z-index: 1;
     min-height: 3.75rem;
     position: fixed;
     display: flex;
@@ -38,14 +58,17 @@ const Container = styled.div`
     top: 0;
     left: 0;
     right: 0;
-    /* width: 100%; */
-    `
+    filter: ${props => props.show ? "blur(8px)" : ""};
+    -webkit-filter: ${props => props.show ? "blur(8px)" : ""};
+`
 
 const Menu = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
     flex: 1;
+    filter: ${props => props.show ? "blur(8px)" : ""};
+    -webkit-filter: ${props => props.show ? "blur(8px)" : ""};
 
     a {
         font-weight: 600;
@@ -61,6 +84,8 @@ const Menu = styled.div`
 const RightMenu = styled.div`
     display: flex;
     align-items: center;
+    filter: ${props => props.show ? "blur(8px)" : ""};
+    -webkit-filter: ${props => props.show ? "blur(8px)" : ""};
 
     a {
         font-weight: 600;
@@ -70,4 +95,39 @@ const RightMenu = styled.div`
 `
 const CustomMenu = styled(MenuIcon)`
 
+`
+
+const BurgerNav = styled.div`
+    z-index: 100;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background-color: white;
+    width: 18.75rem;
+    list-style: none;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    transform: ${props => props.show ? "translateX(0)" : "translateX(100%)"};
+    transition: .2s ease-in-out;
+
+    li {
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(0, 0, 0, .2);
+
+        a {
+            font-weight: 600;
+        }
+
+    }
+`
+const Logo = styled.a`
+    filter: ${props => props.show ? "blur(8px)" : ""};
+    -webkit-filter: ${props => props.show ? "blur(8px)" : ""};
+`
+const CloseWrapper = styled.div`
+    display: flex;
+    justify-content: flex-end;
 `

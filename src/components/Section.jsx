@@ -1,6 +1,5 @@
 import React from "react"
 import styled from "styled-components"
-import { Link } from "react-router-dom"
 import Fade from "react-reveal/Fade"
 
 const Section = ({title, description, leftBtnText, rightBtnText, backgroundImage}) => {
@@ -39,6 +38,7 @@ const Wrapper = styled.div`
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-color: #3c3c3c;
     background-image: ${props => `url("/images/${props.bgImage}")`};
     display: flex;
     flex-direction: column;
