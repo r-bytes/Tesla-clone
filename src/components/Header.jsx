@@ -1,23 +1,24 @@
-import React, { useState } from 'react'
-import styled from "styled-components"
-import MenuIcon from '@material-ui/icons/Menu'
-import IconButton from "@mui/material/IconButton"
-import CloseIcon from "@mui/icons-material/Close"
-import { useStateContext } from "../context/StateContext"
+import React from 'react';
+import styled from "styled-components";
+import MenuIcon from '@material-ui/icons/Menu';
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import { useStateContext } from "../context/StateContext";
 
 const Header = () => {
-    const {showBurger, setShowBurger} = useStateContext()
+    const {showBurger, setShowBurger, cars} = useStateContext()
 
     return (
-        <Container>
+        <Container show={showBurger}>
             <Logo show={showBurger}>
                 <img src="/images/logo.svg" alt="/" />
             </Logo>
             <Menu show={showBurger}>
-                <a href="#"> Model 3 </a>
-                <a href="#"> Model Y </a>
-                <a href="#"> Model S </a>
-                <a href="#"> Model X </a>
+                {cars && cars.map((car, index) => 
+                    <a href="#" key={index}>
+                        {car.name}
+                    </a>
+                )}
             </Menu>
             <RightMenu show={showBurger}>
                 <a href="#"> Shop </a>
@@ -32,6 +33,11 @@ const Header = () => {
                         <CloseIcon />
                     </IconButton>
                 </CloseWrapper>
+                {cars && cars.map((car, index) => 
+                    <li key={index}>
+                        <a href="#">{car.name}</a>
+                    </li>
+                )}
                 <li> <a href="#"> Solar Roof </a> </li>
                 <li> <a href="#"> Solar Panels </a></li>
                 <li> <a href="#"> Existing Inventory </a></li>
@@ -58,8 +64,6 @@ const Container = styled.div`
     top: 0;
     left: 0;
     right: 0;
-    filter: ${props => props.show ? "blur(8px)" : ""};
-    -webkit-filter: ${props => props.show ? "blur(8px)" : ""};
 `
 
 const Menu = styled.div`

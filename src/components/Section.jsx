@@ -1,6 +1,6 @@
-import React from "react"
-import styled from "styled-components"
-import Fade from "react-reveal/Fade"
+import React from "react";
+import styled from "styled-components";
+import Fade from "react-reveal/Fade";
 
 const Section = ({title, description, leftBtnText, rightBtnText, backgroundImage}) => {
     return (
